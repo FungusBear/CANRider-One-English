@@ -1,74 +1,74 @@
 # CANRider One
 
-**CANRider One** es un sistema diseñado para integrar y supervisar datos de motos eléctricas mediante el protocolo CAN. Este proyecto combina simplicidad y funcionalidad, permitiendo:
+**CANRider One** is a system designed to integrate and monitor data from electric motorcycles using the CAN protocol. This project combines simplicity and functionality, enabling:
 
-- Monitoreo en tiempo real del estado de la batería.
-- Localización del vehículo por GPS
-- Registro de los datos en servidor propio de Traccar
-- Comunicación mediante SMS
+- Real-time monitoring of battery status.
+- Vehicle location via GPS.
+- Data logging on a self-hosted Traccar server.
+- Communication via SMS.
 
-Ideal para entusiastas de la tecnología y la movilidad eléctrica, **CANRider One** ofrece una experiencia optimizada para comprender y mejorar el rendimiento de tu motocicleta.
+Ideal for technology and electric mobility enthusiasts, **CANRider One** offers an optimized experience to understand and improve your motorcycle's performance.
 
-Este proyecto está adaptado para SuperSoco CPX. 
+This project is adapted for the SuperSoco CPX.
 
-Es un proyecto muy básico y, por supuesto, no me hago responsable de la que puedas liar ni de si te funciona. No debería ocurrir nada, pues en nigún momento el proyecto final envía tramas CAN a la moto (podría bloquear tu BMS). Lo he documentado lo mejor que he podido. 
+It is a very basic project, and of course, I am not responsible for any issues you may encounter or whether it works for you. Nothing should go wrong since the final project does not send CAN frames.
 
-## Características
-- 📊 **Monitoreo en tiempo real**: Mantente informado sobre los datos clave de tu motocicleta.
-- ⚡ **Conectividad CAN**: Utiliza el protocolo estándar para vehículos eléctricos.
-- 🚀 **Fácil de usar**: Interfaz sencilla y enfoque en la funcionalidad.
-- 🤖 **HomeAssistant**: Integrable en HomeAssistant gracias a la integración propia de Traccar
+## Features
+- 📊 **Real-time monitoring:**: Stay informed about key data from your motorcycle.
+- ⚡ **CAN connectivity**: Use the standard protocol for electric vehicles.
+- 🚀 **Easy to use**: Simple interface with a focus on functionality.
+- 🤖 **HomeAssistant**: Integrable with HomeAssistant using Traccar's integration.
 
-![Captura de Traccar](https://github.com/jichef/CANRider-One/blob/main/capture_traccar.png)
+![Screnshot of Traccar](https://github.com/jichef/CANRider-One/blob/main/capture_traccar.png)
 
-## Requisitos
+## Requirements
 
-- Vehículo que disponga de circuito CAN
-- [LilyGo TSIM7000G 16MB (Aliexpress, también lo tienes en Amazon)](https://es.aliexpress.com/item/4000542688096.html?spm=a2g0o.productlist.main.3.32cbJudJJudJ2w&algo_pvid=415d3a53-2736-4e1c-81be-6b7a21f6e6fb&algo_exp_id=415d3a53-2736-4e1c-81be-6b7a21f6e6fb-1&pdp_npi=4%40dis%21EUR%2141.59%2141.59%21%21%2142.24%2142.24%21%4021038e6617352498647415124efd6a%2112000032432563392%21sea%21ES%210%21ABX&curPageLogUid=8nMRXncF299e&utparam-url=scene%3Asearch%7Cquery_from%3A) (aunque supongo que también valdrán otros, sólo he probado con el TSIM7670G -y no a fondo-)
+- A vehicle with a CAN circuit.
+- [LilyGo TSIM7000G 16MB (Available on Aliexpress and Amazon)](https://es.aliexpress.com/item/4000542688096.html?spm=a2g0o.productlist.main.3.32cbJudJJudJ2w&algo_pvid=415d3a53-2736-4e1c-81be-6b7a21f6e6fb&algo_exp_id=415d3a53-2736-4e1c-81be-6b7a21f6e6fb-1&pdp_npi=4%40dis%21EUR%2141.59%2141.59%21%21%2142.24%2142.24%21%4021038e6617352498647415124efd6a%2112000032432563392%21sea%21ES%210%21ABX&curPageLogUid=8nMRXncF299e&utparam-url=scene%3Asearch%7Cquery_from%3A) (aunque supongo que también valdrán otros, sólo he probado con el TSIM7670G -y no a fondo-)
 - [Transciever SN65HVD230](https://www.amazon.es/gp/product/B07VG3Z9GT/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1).
-- Tarjeta SIM (Digi tiene una tarifa de datos con 2GB -que sobra- pero ofrece SMS gratis entre números DIGI)
-- 🚨Servidor Traccar🚨. Este dato es importante tenerlo en cuenta. La localización GPS se graba en un servidor LOCAL. Tienes que disponer de esta infraestructura para poder utilizar este servicio. Hay muchas alternativas. Unas más seguras y otras menos: Raspberry Pi, NUC, Proxmox, servicio dedicado de Traccar... Yo he usado un NUC con Proxmox (abajo te explico cómo lo he montado).
+- SIM card (Digi offers a data plan with 2GB—more than enough—and free SMS between Digi numbers)
+- 🚨Traccar Server🚨. This is crucial. GPS location is logged on a LOCAL server. You need this infrastructure to use this service. Hay muchas alternativas. Unas más seguras y otras menos: Raspberry Pi, NUC, Proxmox, servicio dedicado de Traccar... Yo he usado un NUC con Proxmox (abajo te explico cómo lo he montado).
 - [Transciever SN65HVD230](https://www.amazon.es/gp/product/B07VG3Z9GT/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1).
-- [Carcasa impresa](https://www.thingiverse.com/thing:5861376)
-- [ODB2 MACHO de 6 pin](https://es.aliexpress.com/item/1005004526698938.html?spm=a2g0o.order_list.order_list_main.5.445f194dxILzUf&gatewayAdapt=glo2esp).
-- Conversor de [12V a 5V](https://www.amazon.es/gp/product/B0C3HDNT8R/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1) 
+- [3D Printed case](https://www.thingiverse.com/thing:5861376)
+- [ODB2 6 pin connector](https://es.aliexpress.com/item/1005004526698938.html?spm=a2g0o.order_list.order_list_main.5.445f194dxILzUf&gatewayAdapt=glo2esp).
+- converter [12V to 5V](https://www.amazon.es/gp/product/B0C3HDNT8R/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1) 
 
 Entonces, ¿si no tengo servidor de Traccar, puedo conocer la ubicación GPS y estado de la batería, por ejemplo? Sí, claro que sí. Pero la obtendras por SMS, sé que es muy rudimentario, pero es la única forma de enviar los datos. Se podría enviar por Telegram, por ejemplo, pero eso podría estar en una lista TO-DO.
 
-## Motivación
-Es bien sabido que la actualización reciente por parte de VMOTO de sus ECUs ha dejado sin servicio a muchos usuarios, obligándolos a adquirir una nueva ECU (y todos sabemos lo costosas que son). Además, su app puede pasar largos períodos sin conexión.
+## Motivation
+It's well-known that VMOTO's recent ECU updates have rendered many users' systems inoperative, forcing them to purchase a new ECU (and we all know how expensive they are).
 
-En mi caso, es crucial conocer el porcentaje de la batería en todo momento, algo que no siempre recuerdo comprobar. Gracias al trabajo de [SusoDevs](https://github.com/Xmanu12/SuSoDevs/) descubrí que esto es posible a través de la lectura del CANBus con un ESP32.
+In my case, knowing the battery percentage at all times is crucial, which I don't always remember to check. Thanks to the work of [SusoDevs](https://github.com/Xmanu12/SuSoDevs/) descubrí que esto es posible a través de la lectura del CANBus con un ESP32.
 
-CANRider One está basado en una placa [LilyGo TSIM7000G 16MB (Aliexpress)](https://es.aliexpress.com/item/4000542688096.html?spm=a2g0o.productlist.main.3.32cbJudJJudJ2w&algo_pvid=415d3a53-2736-4e1c-81be-6b7a21f6e6fb&algo_exp_id=415d3a53-2736-4e1c-81be-6b7a21f6e6fb-1&pdp_npi=4%40dis%21EUR%2141.59%2141.59%21%21%2142.24%2142.24%21%4021038e6617352498647415124efd6a%2112000032432563392%21sea%21ES%210%21ABX&curPageLogUid=8nMRXncF299e&utparam-url=scene%3Asearch%7Cquery_from%3A). Se trata de un dispositivo basado en ESP32, diseñado para aplicaciones IoT, que incluye un módulo SIM7000G compatible con GSM, GPRS, GNSS (GPS, GLONASS), y LTE CAT-M/NB-IoT. Esto permite la conectividad móvil para la transmisión de datos y ubicación. Además, del soporte para tarjetas SIM, dispone de ranura para microSD y antenas para mejorar la recepción. Y, por supuesto, cuenta con WiFi y Bluetooth.
+CANRider One is based on a  [LilyGo TSIM7000G 16MB (Aliexpress)](https://es.aliexpress.com/item/4000542688096.html?spm=a2g0o.productlist.main.3.32cbJudJJudJ2w&algo_pvid=415d3a53-2736-4e1c-81be-6b7a21f6e6fb&algo_exp_id=415d3a53-2736-4e1c-81be-6b7a21f6e6fb-1&pdp_npi=4%40dis%21EUR%2141.59%2141.59%21%21%2142.24%2142.24%21%4021038e6617352498647415124efd6a%2112000032432563392%21sea%21ES%210%21ABX&curPageLogUid=8nMRXncF299e&utparam-url=scene%3Asearch%7Cquery_from%3A). Se trata de un dispositivo basado en ESP32, diseñado para aplicaciones IoT, que incluye un módulo SIM7000G compatible con GSM, GPRS, GNSS (GPS, GLONASS), y LTE CAT-M/NB-IoT. Esto permite la conectividad móvil para la transmisión de datos y ubicación. Además, del soporte para tarjetas SIM, dispone de ranura para microSD y antenas para mejorar la recepción. Y, por supuesto, cuenta con WiFi y Bluetooth.
 
 ![LilyGo TSIM7000G](https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2022/08/ESP32-TSIM7000G.jpg?resize=750%2C422&quality=100&strip=all&ssl=1$0)
 
-La integración con Traccar viene definida (con algunos retoques) gracias al codigo de [github.com/onlinegill](https://github.com/onlinegill/LILYGO-TTGO-T-SIM7000G-ESP32-Traccar-GPS-tracker) y [github.com/markoAntonio1962](https://github.com/markoAntonio1692/TTGO-SIM7000G-TRACCAR).
+The integration with Traccar is defined (with some tweaks) thanks to the code from [github.com/onlinegill](https://github.com/onlinegill/LILYGO-TTGO-T-SIM7000G-ESP32-Traccar-GPS-tracker) and [github.com/markoAntonio1962](https://github.com/markoAntonio1692/TTGO-SIM7000G-TRACCAR).
 
-## Estructura de Archivos: CANRider One
-A lo largo del proceso, el código ha pasado por varias etapas de evolución. He logrado transformarlo en un programa modular, donde cada módulo cumple con un propósito específico, haciéndolo más sencillo para mejorar las diferentes partes del proyecto. 
+## File Structure: CANRider One
+Throughout the process, the code has gone through various stages of evolution. I have managed to turn it into a modular program, where each module has a specific purpose, making it easier to maintain and expand.
 
-Además, he definido claramente las variables, lo que permite adaptar fácilmente el código a las necesidades particulares de cada usuario.
+Additionally, I have clearly defined the variables, making it easy to adapt the code to the specific needs of each user.
 
-A continuación, se detalla la descripción de cada archivo:
+Below is a description of each file:
 
-| Archivo           | Descripción                                                                 |
+| File           | Description                                                                |
 |-------------------|-----------------------------------------------------------------------------|
-| `globals.cpp`     | Declaración e inicialización de variables globales del programa. Variables preparadas para que el usuario modifique.          |
-| `messages.cpp`    | Decodificación y manejo de mensajes generales.             |
-| `modem.cpp`       | Control y comunicación con el módem, incluyendo comandos AT.              |
-| `sms.cpp`         | Implementación de la lógica para la gestión de mensajes SMS.               |
+| `globals.cpp`     | Declaration and initialization of global variables. Prepared for user modifications.         |
+| `messages.cpp`    | Decoding and handling of general messages.             |
+| `modem.cpp`       | Control and communication with the modem, including AT commands.              |
+| `sms.cpp`         | Management of output data, such as logs or displays.             |
 | `output.cpp`      | Gestión de la salida de datos, como logs o pantallas.                     |
-| `sms.h`           | Declaraciones de funciones relacionadas con SMS.                          |
-| `globals.h`       | Declaraciones de variables globales para uso compartido entre módulos.    |
-| `modem.h`         | Declaraciones de funciones para el manejo del módem.                      |
-| `output.h`        | Declaraciones para funciones de salida de datos.                          |
-| `messages.h`      | Declaraciones relacionadas con los mensajes CAN.                          |
+| `sms.h`           | Declarations of functions related to SMS.                         |
+| `globals.h`       | Declarations of global variables for shared module usage.    |
+| `modem.h`         | Declarations of functions for modem handling.                      |
+| `output.h`        | Declarations for data output functions.                          |
+| `messages.h`      | Declarations related to CAN messages.                          |
 
-# Configuración de Variables Globales
+# Global Variable Configuration
 
-El archivo ´globals.cpp´ contiene las configuraciones principales para el dispositivo, como nombre Bluetooth (que se mantiene por tener un log, terminará por desaparecer para ahorrar batería), credenciales GSM, información del servidor Traccar, tiempos de actualización y palabras clave para comandos SMS. A continuación, se describe cada variable:
+The ´globals.cpp´ file contains the main settings for the device, such as the Bluetooth name (kept for logging purposes but will eventually be removed to save battery), among others., credenciales GSM, información del servidor Traccar, tiempos de actualización y palabras clave para comandos SMS. A continuación, se describe cada variable:
 
 | **Variable**                  | **Alterable** | **Descripción**                                                                                          |
 |-------------------------------|---------------|----------------------------------------------------------------------------------------------------------|
